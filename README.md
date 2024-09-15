@@ -7,7 +7,7 @@
 **Kwiksort** is a basic file sorter created to sort your images into the relevant directories based off their _EXIF_ data.
 
 ## How it works
-It creates directories based off the EXIF data, then moves them based on YEAR and MONTH as YYYY, MM
+It creates directories using the EXIF data, then moves them based on YEAR and MONTH as YYYY, MM
 
 ![image](https://github.com/user-attachments/assets/1bd4c058-93cf-4274-8513-a611bafb08bf)
 
