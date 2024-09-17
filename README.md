@@ -43,8 +43,3 @@ Having said that, I hope you enjoy this neat little tool :-)
 |-------04----|
 ```
 ![image](https://github.com/user-attachments/assets/cba7f5c4-4b35-44ac-bec4-7ee44a1a208f)
-
-> [!NOTE]
-> Kwiksort will handle video files differently. All video files will be placed into the 'None' folder.
-> This is currently something I am working on as it currently only handles images with EXIF data based on year and month captured.
-> That being said, any files without this data will also be stored in the 'None' folder.
