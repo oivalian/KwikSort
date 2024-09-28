@@ -19,11 +19,7 @@ dir_path = getcwd()
 log = path.join(dir_path, "_logs")
 logfile_path = path.join(log, f"{strftime('%Y%m%d')}.log")
 
-
 def img_passer(input_file):
-    if not path.exists(log):
-        makedirs(log)
-
     with open(logfile_path, "a") as logfile:
         logfile.write(f"{strftime('\n%H:%M:%S | ')}")
 
@@ -57,14 +53,20 @@ def img_passer(input_file):
             if path.isfile(move_path):
                 logfile.write(f"E02 | '{path.basename(input_file)}' cannot move to {move_path}. File already exists\n")
             else:
+                global file_count
                 move(input_file, move_path)
                 logfile.write(f"000 | '{path.basename(input_file)}' moved to {move_path}\n")
+                file_count += 1
 
         # USED TO PASS 'CORRUPT' FILES
         except Exception as e:
             logfile.write(f"File Unreadable: {input_file} - Error: {str(e)}\n")
             pass
 
+
+# MAIN
+if not path.exists(log):
+    makedirs(log)
 
 print(
     "!!! IMPORTANT !!!\n\n"
@@ -86,13 +88,13 @@ while True:
 
 # RETRIEVE FILES AND HANDLE FILE TYPES
 file_list = listdir(dir_path)
-file_count = 0
 img_fmts = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 vid_fmts = (".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv", ".webm", ".mpeg")
+file_count = 0
 
 for file in file_list:
-    if not file.endswith(img_fmts + vid_fmts):
-        if path.isdir(file) or file.endswith(".log"):
+    if not file.lower().endswith(img_fmts + vid_fmts):
+        if path.isdir(file):
             continue
         with open(f"{logfile_path}", "a") as logfile:
             logfile.write(f"\n{strftime('%H:%M:%S')} | E01 | Invalid format for '{path.basename(file)}'\n")
@@ -102,8 +104,10 @@ for file in file_list:
 
     if path.isfile(img_path):
         img_passer(img_path)
-        file_count += 1
 
-print(f"\nSuccessfully moved {file_count} files. Exiting program ...")
+if file_count:
+    print(f"\nSuccessfully moved {file_count} files. Exiting program ...")
+else:
+    print("No files moved. Exiting program ...")
 sleep(2)
 exit()
