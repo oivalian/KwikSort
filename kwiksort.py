@@ -16,25 +16,26 @@ E02 - Duplicate file. A file in the target directory already exists
 
 # DIR IMPORT
 dir_path = getcwd()
-log = "".join(dir_path + "\\_logs")
+log = path.join(dir_path, "_logs")
+logfile_path = path.join(log, f"{strftime('%Y%m%d')}.log")
 
 
-def img_passer(img_file):
+def img_passer(input_file):
     if not path.exists(log):
         makedirs(log)
 
-    with open(f"{log}\\{strftime('%Y%m%d')}.log", "a") as logfile:
+    with open(logfile_path, "a") as logfile:
         logfile.write(f"{strftime('\n%H:%M:%S | ')}")
 
         try:
             # OPEN & EXTRACTION
-            with open(img_file, "rb") as img:
+            with open(input_file, "rb") as img:
                 metadata = process_file(img)
 
             date = metadata.get("EXIF DateTimeOriginal")
 
             if not date:
-                mod_time = path.getmtime(img_file)
+                mod_time = path.getmtime(input_file)
                 mod_date = strftime("%Y:%m", localtime(mod_time))
                 year, month = mod_date[:4], mod_date[5:7]
             else:
@@ -51,17 +52,17 @@ def img_passer(img_file):
                 makedirs(month_dir)
 
             # HANDLING
-            move_path = path.join(month_dir, path.basename(img_file))
+            move_path = path.join(month_dir, path.basename(input_file))
 
             if path.isfile(move_path):
-                logfile.write(f"E02 | '{path.basename(img_file)}' cannot move to {move_path}. File already exists\n")
+                logfile.write(f"E02 | '{path.basename(input_file)}' cannot move to {move_path}. File already exists\n")
             else:
-                move(img_file, move_path)
-                logfile.write(f"000 | '{path.basename(img_file)}' moved to {move_path}\n")
+                move(input_file, move_path)
+                logfile.write(f"000 | '{path.basename(input_file)}' moved to {move_path}\n")
 
         # USED TO PASS 'CORRUPT' FILES
         except Exception as e:
-            logfile.write(f"File Unreadable: {img_file} - Error: {str(e)}\n")
+            logfile.write(f"File Unreadable: {input_file} - Error: {str(e)}\n")
             pass
 
 
@@ -93,7 +94,7 @@ for file in file_list:
     if not file.endswith(img_fmts + vid_fmts):
         if path.isdir(file) or file.endswith(".log"):
             continue
-        with open(f"{strftime('%Y%m%d')}.log", "a") as logfile:
+        with open(f"{logfile_path}", "a") as logfile:
             logfile.write(f"\n{strftime('%H:%M:%S')} | E01 | Invalid format for '{path.basename(file)}'\n")
         continue
 
@@ -103,6 +104,6 @@ for file in file_list:
         img_passer(img_path)
         file_count += 1
 
-print(f"\n{file_count} files sorted! Exiting program ...")
-sleep(1)
+print(f"\nSuccessfully moved {file_count} files. Exiting program ...")
+sleep(2)
 exit()
