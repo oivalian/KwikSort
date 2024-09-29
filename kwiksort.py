@@ -87,6 +87,8 @@ while True:
             exit()
 
 # RETRIEVE FILES AND HANDLE FILE TYPES
+# OPTION TO INCLUDE RAW FORMATS WILL BE ADDED AT A LATER DATE
+
 file_list = listdir(dir_path)
 img_fmts = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 vid_fmts = (".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv", ".webm", ".mpeg")
