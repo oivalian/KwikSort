@@ -2,6 +2,7 @@ from os import path, getcwd, listdir, makedirs
 from exifread import process_file
 from shutil import move
 from time import sleep, strftime, localtime
+from keyboard import is_pressed
 
 '''
 .log Codes:
@@ -91,14 +92,15 @@ responsibility lies on you, the user, to use this tool appropriately and underst
 Having said that, I hope you enjoy this neat little tool :-)
 """)
 
+print("(RETURN) RUN KWIKSORT NOW | (E) EXIT")
+
 while True:
-    match input("(RETURN) RUN KWIKSORT NOW | (E) EXIT \n>>> "):
-        case "":
-            break
-        case "e" | "E":
-            print("\nExiting program ... ")
-            sleep(1)
-            exit()
+    if is_pressed("e") or is_pressed("E"):
+        print("\nExiting program ... ")
+        sleep(1)
+        exit()
+    if is_pressed("enter"):
+        break
 
 # RETRIEVE FILES AND HANDLE FILE TYPES
 # OPTION TO INCLUDE RAW FORMATS WILL BE ADDED AT A LATER DATE
@@ -124,6 +126,6 @@ for file in file_list:
 if file_count:
     print(f"\nSuccessfully moved {file_count} files. Exiting program ...")
 else:
-    print("No files moved. Exiting program ...")
+    print("\nNo files moved. Exiting program ...")
 sleep(2)
 exit()
