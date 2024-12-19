@@ -68,14 +68,28 @@ def img_passer(input_file):
 if not path.exists(log):
     makedirs(log)
 
-print(
-    "!!! IMPORTANT !!!\n\n"
-    "KWIKSORT is to be used at your own risk.\nThough I have done everything in my best effort to ensure"
-    " there is zero chance of corruption to your files, \nI cannot guarantee or be held liable"
-    " for any loss of data that may arise from using this tool, and any\nresponsibility lies on you, the user,"
-    "to use this tool appropriately and understand the risks.\n"
-    "Having said that, I hope you enjoy this neat little tool :-)\n"
-)
+print("""
+
+···································································
+:                                                                 :
+:                                                                 :
+:  _     _ _  _  _ _____ _     _ _______  _____   ______ _______  :
+:  |____/  |  |  |   |   |____/  |______ |     | |_____/    |     :
+:  |    \_ |__|__| __|__ |    \_ ______| |_____| |    \_    |     :
+:                                                                 :
+:                                                                 :
+···································································
+
+!!! IMPORTANT !!!
+    
+KWIKSORT is to be used at your own risk.
+    
+Though I have done everything in my best effort to ensure there is zero chance of corruption to your files,
+I cannot guarantee or be held liable for any loss of data that may arise from using this tool, and any
+responsibility lies on you, the user, to use this tool appropriately and understand the risks.
+
+Having said that, I hope you enjoy this neat little tool :-)
+""")
 
 while True:
     match input("(RETURN) RUN KWIKSORT NOW | (E) EXIT \n>>> "):
