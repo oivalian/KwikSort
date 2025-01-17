@@ -1,7 +1,7 @@
 from os import path, getcwd, listdir, makedirs
 from exifread import process_file
 from shutil import move
-from time import sleep, strftime, localtime
+from time import sleep, strftime, localtime, time
 from keyboard import is_pressed
 
 '''
@@ -70,20 +70,16 @@ if not path.exists(log):
     makedirs(log)
 
 print("""
+\033[32;1m _  ____        _____ _  ______   ___  ____ _____ 
+| |/ /\\ \\      / /_ _| |/ / ___| / _ \\|  _ \\_   _|
+| ' /  \\ \\ /\\ / / | || ' /\\___ \\| | | | |_) || |  
+| . \\   \\ V  V /  | || . \\ ___) | |_| |  _ < | |  
+|_|\\_\\   \\_/\\_/  |___|_|\\_\\____/ \\___/|_| \\_\\|_|  
 
-···································································
-:                                                                 :
-:                                                                 :
-:  _     _ _  _  _ _____ _     _ _______  _____   ______ _______  :
-:  |____/  |  |  |   |   |____/  |______ |     | |_____/    |     :
-:  |    \_ |__|__| __|__ |    \_ ______| |_____| |    \_    |     :
-:                                                                 :
-:                                                                 :
-···································································
-
-!!! IMPORTANT !!!
+\033[0m
+\033[1;31m!!! IMPORTANT !!!\033[0m
     
-KWIKSORT is to be used at your own risk.
+KWIKSORT is to be used at your \033[4mown\033[0m risk.
     
 Though I have done everything in my best effort to ensure there is zero chance of corruption to your files,
 I cannot guarantee or be held liable for any loss of data that may arise from using this tool, and any
@@ -92,7 +88,7 @@ responsibility lies on you, the user, to use this tool appropriately and underst
 Having said that, I hope you enjoy this neat little tool :-)
 """)
 
-print("(RETURN) RUN KWIKSORT NOW | (E) EXIT")
+print("\033[1;32m(RETURN) RUN KWIKSORT NOW | (E) EXIT\033[0m")
 
 while True:
     if is_pressed("e") or is_pressed("E"):
@@ -109,6 +105,7 @@ file_list = listdir(dir_path)
 img_fmts = (".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp")
 vid_fmts = (".mp4", ".mov", ".avi", ".mkv", ".wmv", ".flv", ".webm", ".mpeg")
 file_count = 0
+timer_start = time()
 
 for file in file_list:
     if not file.lower().endswith(img_fmts + vid_fmts):
@@ -123,9 +120,20 @@ for file in file_list:
     if path.isfile(img_path):
         img_passer(img_path)
 
+timer_stop = time()
+time_elapsed = timer_start - timer_stop
+
 if file_count:
-    print(f"\nSuccessfully moved {file_count} files. Exiting program ...")
+    print(f"""
+\033[1;32mMove Successful!\033[0m
+
+Files moved: \033[36m{file_count}\033[0m
+Time elapsed: \033[36m{abs(time_elapsed):.2f} seconds\033[0m
+""")
+    sleep(3)
 else:
-    print("\nNo files moved. Exiting program ...")
+    print("\n\033[33mNo files moved.\033[0m")
+    
+print("\nExiting program ...")
 sleep(2)
 exit()
