@@ -2,6 +2,8 @@
 > Though I have done everything in my best effort to ensure there is zero chance of corruption to your files,
 > I cannot guarantee or be held liable for any loss of data that may arise from using this tool, and any
 > responsibility lies on you, the user, to use this tool appropriately and understand the risks.
+>
+> Also note: KwikSort is unidirectional. Once a sort has carried out, there is no way to undo. This is, however, a planned feature down the track.
 
 # KwikSort
 **Kwiksort** is a basic file sorter created to sort your images into the relevant directories based off their _EXIF_ data.
